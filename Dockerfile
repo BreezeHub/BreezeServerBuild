@@ -43,13 +43,12 @@ USER stratis
 RUN mkdir /home/stratis/src /home/stratis/bin
 
 # TODO: run from a copy
- WORKDIR /home/stratis/src
- RUN git clone https://github.com/stratisproject/stratisX.git
- WORKDIR /home/stratis/src/stratisX/src
- RUN make -f makefile.unix
- RUN mkdir /home/stratis/.stratis
- RUN cp -a stratisd /home/stratis/bin
-COPY stratisd /home/stratis/bin
+WORKDIR /home/stratis/src
+RUN git clone https://github.com/stratisproject/stratisX.git
+WORKDIR /home/stratis/src/stratisX/src
+RUN make -f makefile.unix
+RUN mkdir /home/stratis/.stratis
+RUN cp -a stratisd /home/stratis/bin
 
 # Stratis user should be running this
 COPY stratis.conf /home/stratis/.stratis/stratis.conf
