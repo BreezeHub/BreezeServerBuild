@@ -90,6 +90,7 @@ RUN chown -R breeze /home/breeze/
 
 USER breeze
 RUN dotnet restore /home/breeze/BreezeServer/BreezeServer.sln
+RUN dotnet build /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj
 
 
 
@@ -114,11 +115,9 @@ USER root
 RUN cat /home/public/breeze.conf >> /home/breeze/.breezeserver/breeze.conf
 RUN cat /home/breeze/.breezeserver/breeze.conf
 
-# Build & serve over tor
+# Serve over tor
 # -------------------------------------
-USER breeze
-RUN dotnet build /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj
 
-RUN tor -controlport 9051
+RUN tor -controlport 9051 -runasdaemon 1
 
 CMD dotnet run --project /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj -testnet
