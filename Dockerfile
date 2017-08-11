@@ -59,25 +59,12 @@ RUN . /home/stratis/.bashrc
 
 
 
-# Run Bitcoin Core
-# -------------------------------------
+# load BreezeServer & configs
+# --------------------------------------
 USER root
 RUN useradd --create-home -s /bin/bash breeze
 
 USER breeze
-WORKDIR /home/breeze/
-RUN mkdir /home/breeze/.bitcoin
-RUN mkdir /home/breeze/.bitcoin/testnet3
-COPY bitcoin.conf /home/breeze/.bitcoin/bitcoin.conf
-COPY bitcoin-0.13.1-x86_64-linux-gnu.tar.gz /home/breeze/bitcoin-0.13.1-x86_64-linux-gnu.tar.gz
-RUN tar -xzf bitcoin-0.13.1-x86_64-linux-gnu.tar.gz
-RUN /home/breeze/bitcoin-0.13.1/bin/bitcoind --daemon
-
-# Run BreezeServer
-# --------------------------------------
-
-USER breeze
-
 COPY BreezeServer /home/breeze/BreezeServer
 RUN mkdir /home/breeze/.ntumblebitserver
 RUN mkdir /home/breeze/.ntumblebitserver/TestNet
@@ -91,7 +78,22 @@ RUN chown -R breeze /home/breeze/
 USER breeze
 RUN dotnet restore /home/breeze/BreezeServer/BreezeServer.sln
 RUN dotnet build /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj
+ 
+# Run Bitcoin Core
+# -------------------------------------
+WORKDIR /home/breeze/
+RUN mkdir /home/breeze/.bitcoin
+RUN mkdir /home/breeze/.bitcoin/testnet3
+COPY bitcoin.conf /home/breeze/.bitcoin/bitcoin.conf
+COPY bitcoin-0.13.1-x86_64-linux-gnu.tar.gz /home/breeze/bitcoin-0.13.1-x86_64-linux-gnu.tar.gz
+RUN tar -xzf bitcoin-0.13.1-x86_64-linux-gnu.tar.gz
+RUN mkdir /home/breeze/bin
+RUN cp /home/breeze/bitcoin-0.13.1/bin/bitcoind /home/breeze/bin/bitcoind
 
+RUN echo "PATH=$HOME/bin:$PATH" >> /home/breeze/.bashrc
+# Source the bashrc with ~/bin in path
+RUN . /home/breeze/.bashrc
+RUN bitcoind --daemon
 
 
 # Copy new bitcoin address to breeze.conf 
@@ -120,4 +122,5 @@ RUN cat /home/breeze/.breezeserver/breeze.conf
 
 RUN tor -controlport 9051 -runasdaemon 1
 
-CMD dotnet run --project /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj -testnet
+#CMD dotnet run --project /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj -testnet
+CMD bitcoin-cli getinfo
