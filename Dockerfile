@@ -118,6 +118,7 @@ RUN cat /home/breeze/.breezeserver/breeze.conf
 # -------------------------------------
 USER breeze
 RUN dotnet build /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj
-RUN killall tor
+
 RUN tor -controlport 9051
+
 CMD dotnet run --project /home/breeze/BreezeServer/Breeze.BreezeServer/Breeze.BreezeServer.csproj -testnet
