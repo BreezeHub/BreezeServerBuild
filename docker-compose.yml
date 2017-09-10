@@ -5,6 +5,7 @@ stratisd:
   build: ./stratisd
   image: stratisd:latest
   volumes:
+    - breezeserver-shared-testnet-data:/shared
     - stratis-testnet-data:/data
   ports:
     - "127.0.0.1:26174:26174"
@@ -19,13 +20,18 @@ bitcoind:
 tor:
   image: ./tor
   image: tor:latest
+  volumes:
+    - breezeserver-shared-testnet-data:/shared
   ports:
     - "9050:9050"
     - "127.0.0.1:9051:9051"
 breezeserver:
   build: ./breezeserver
   image: breezeserver:latest
+  volumes:
+    - breezeserver-shared-testnet-data:/shared
 
 volumes:
   bitcoin-testnet-data:
   stratis-testnet-data:
+  breezeserver-shared-testnet-data:
