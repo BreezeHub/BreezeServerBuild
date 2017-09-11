@@ -16,7 +16,7 @@ RUN dotnet restore /home/BreezeServer/BreezeServer.sln
 WORKDIR /home/BreezeServer/Breeze.BreezeServer
 
 # Add breeze.conf if it exists
-COPY breeze.*
+COPY breeze.* /home/breeze/.breezeserver/breeze.conf
 
 CMD ["dotnet", "run", "-testnet"]
 
