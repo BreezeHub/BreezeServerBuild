@@ -11,6 +11,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 RUN apt-get update
 RUN apt-get install -y dotnet-dev-1.0.4
 
+# Copy BreezeServer & initialize
 COPY BreezeServer /home/BreezeServer
 RUN dotnet restore /home/BreezeServer/BreezeServer.sln
 WORKDIR /home/BreezeServer/Breeze.BreezeServer
