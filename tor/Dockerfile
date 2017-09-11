@@ -1,6 +1,12 @@
 FROM ubuntu:14.04
 LABEL maintainer="dan@dannygould.com"
 
+# Make Tor user
+RUN adduser tor --disabled-password
+USER tor
+RUN mkdir /home/tor
+
+# Install tor
 RUN echo "deb http://deb.torproject.org/torproject.org trusty main" >> /etc/apt/sources.list
 RUN echo "deb-src http://deb.torproject.org/torproject.org trusty main" >> /etc/apt/sources.list
 RUN gpg --keyserver keys.gnupg.net --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89

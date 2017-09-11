@@ -22,9 +22,11 @@ services:
     image: tor:latest
     volumes:
       - breezeserver-shared-testnet-data:/home/shared
+      - ./breeze-tor.sh:/home/tor/breeze-tor.sh
     ports:
       - "9050:9050"
       - "127.0.0.1:9051:9051"
+    command: /bin/bash /home/tor/breeze-tor.sh
   breezeserver:
     depends_on:
       - stratisd
