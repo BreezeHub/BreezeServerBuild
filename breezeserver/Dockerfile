@@ -15,10 +15,9 @@ COPY BreezeServer /home/BreezeServer
 RUN dotnet restore /home/BreezeServer/BreezeServer.sln
 WORKDIR /home/BreezeServer/Breeze.BreezeServer
 
-# Generate default configs in /root/.breezeserver/breeze.conf
-RUN ["dotnet", "run", "-testnet"]
+# Add breeze.conf if it exists
+COPY breeze.*
 
-# Add breeze.conf
 CMD ["dotnet", "run", "-testnet"]
 
 

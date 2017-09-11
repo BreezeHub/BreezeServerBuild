@@ -5,7 +5,7 @@ services:
     build: ./stratisd
     image: stratisd:latest
     volumes:
-      - breezeserver-shared-testnet-data:/shared
+      - breezeserver-shared-testnet-data:/home/shared
       - stratis-testnet-data:/data
     ports:
       - "127.0.0.1:26174:26174"
@@ -21,18 +21,22 @@ services:
     image: ./tor
     image: tor:latest
     volumes:
-      - breezeserver-shared-testnet-data:/shared
+      - breezeserver-shared-testnet-data:/home/shared
     ports:
       - "9050:9050"
       - "127.0.0.1:9051:9051"
   breezeserver:
+    depends_on:
+      - stratisd
+      - bitcoind
+      - tor
     build: ./breezeserver
     image: breezeserver:latest
     environment:
       # BreezeServer uses HOME to define application datadirs (.ntumblebitserver, .breezeserver)
       - HOME=/shared
     volumes:
-      - breezeserver-shared-testnet-data:/shared
+      - breezeserver-shared-testnet-data:/home/shared
 
 volumes:
   bitcoin-testnet-data:
