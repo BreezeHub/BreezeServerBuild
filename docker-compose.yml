@@ -7,8 +7,10 @@ services:
     volumes:
       - breezeserver-shared-testnet-data:/home/shared
       - stratis-testnet-data:/data
+      - ./stratisd-entrypoint.sh:/home/stratisd/stratisd-entrypoint.sh
     ports:
       - "127.0.0.1:26174:26174"
+    entrypoint: /home/stratisd/stratisd-entrypoint.sh
   bitcoind:
     image: kylemanna/bitcoind:latest
     volumes:
