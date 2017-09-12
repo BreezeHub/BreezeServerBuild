@@ -22,11 +22,11 @@ services:
     image: tor:latest
     volumes:
       - breezeserver-shared-testnet-data:/home/shared
-      - ./breeze-tor.sh:/home/tor/breeze-tor.sh
+      - ./tor-entrypoint.sh:/home/tor/tor-entrypoint.sh
     ports:
       - "9050:9050"
       - "127.0.0.1:9051:9051"
-    command: /bin/bash /home/tor/breeze-tor.sh
+    entrypoint: /home/tor/tor-entrypoint.sh
   breezeserver:
     depends_on:
       - stratisd
