@@ -10,7 +10,7 @@ services:
       - ./stratisd-entrypoint.sh:/home/stratisd/stratisd-entrypoint.sh
     ports:
       - "127.0.0.1:26174:26174"
-    entrypoint: /home/stratisd/stratisd-entrypoint.sh
+    command: /bin/bash /home/stratisd/stratisd-entrypoint.sh
   bitcoind:
     image: kylemanna/bitcoind:latest
     volumes:
@@ -28,7 +28,7 @@ services:
     ports:
       - "9050:9050"
       - "127.0.0.1:9051:9051"
-    entrypoint: /home/tor/tor-entrypoint.sh
+    command: /bin/bash home/tor/tor-entrypoint.sh
   breezeserver:
     depends_on:
       - stratisd
