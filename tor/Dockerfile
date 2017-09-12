@@ -1,9 +1,6 @@
-FROM ubuntu:14.04
+FROM notroot:latest
 LABEL maintainer="dan@dannygould.com"
 
-# Make Tor user
-RUN adduser tor --disabled-password
-USER tor
 RUN mkdir /home/tor
 
 # Install tor

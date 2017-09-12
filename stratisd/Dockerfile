@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM notroot:latest
 LABEL maintainer="dan@dannygould.com"
 # Install dependencies
 # -------------------------------------
@@ -26,8 +26,7 @@ RUN apt-get install -y \
   libssl-dev \
   git
 
-RUN adduser stratis --disabled-password
-USER stratis
+RUN mkdir /home/stratis
 RUN mkdir /home/stratis/src /home/stratis/bin
 
 WORKDIR /home/stratis/src
