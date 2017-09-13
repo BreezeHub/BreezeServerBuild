@@ -41,6 +41,8 @@ services:
       - HOME=/shared
     volumes:
       - breezeserver-shared-testnet-data:/home/shared
+      - ./breeze-entrypoint.sh:/home/breeze/breeze-entrypoint.sh
+    command: /bin/bash /home/breeze/breeze-entrypoint.sh
 
 volumes:
   bitcoin-testnet-data:
