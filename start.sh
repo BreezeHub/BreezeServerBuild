@@ -8,7 +8,7 @@ docker volume create breezeserver-shared-testnet-data
 
 # populate shared volume
 docker run -v breezeserver-shared-testnet-data:/home/shared --name helper busybox true
-docker cp breeze.conf helper:/home/shared/breeze.conf
+docker cp breeze.conf helper:/home/shared/.breezeserver/breeze.conf
 docker rm helper
 
 # compose the breezeserver services
