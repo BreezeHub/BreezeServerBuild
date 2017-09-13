@@ -5,7 +5,7 @@ services:
     build: ./stratisd
     image: stratisd:latest
     volumes:
-      - breezeserver-shared-testnet-data:/home/shared
+      - breezeserver-shared-testnet-data:/shared
       - stratis-testnet-data:/data
       - ./stratisd-entrypoint.sh:/home/stratisd/stratisd-entrypoint.sh
     ports:
@@ -23,7 +23,7 @@ services:
     image: ./tor
     image: tor:latest
     volumes:
-      - breezeserver-shared-testnet-data:/home/shared
+      - breezeserver-shared-testnet-data:/shared
       - ./tor-entrypoint.sh:/home/tor/tor-entrypoint.sh
     ports:
       - "9050:9050"
@@ -38,9 +38,9 @@ services:
     image: breezeserver:latest
     environment:
       # BreezeServer uses HOME to define application datadirs (.ntumblebitserver, .breezeserver)
-      - HOME=/home/shared
+      - HOME=/shared
     volumes:
-      - breezeserver-shared-testnet-data:/home/shared
+      - breezeserver-shared-testnet-data:/shared
       - ./breeze-entrypoint.sh:/home/breeze/breeze-entrypoint.sh
     command: /bin/bash /home/breeze/breeze-entrypoint.sh
 

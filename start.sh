@@ -7,8 +7,8 @@ docker volume create stratis-testnet-data
 docker volume create breezeserver-shared-testnet-data
 
 # populate shared volume
-docker run --rm -v breezeserver-shared-testnet-data:/home/shared --name=helper busybox true
-docker cp breeze.conf helper:/home/shared/.breezeserver/breeze.conf
+docker run --rm -v breezeserver-shared-testnet-data:/shared --name=helper busybox true
+docker cp breeze.conf helper:/hared/.breezeserver/breeze.conf
 docker rm helper
 
 # compose the breezeserver services
