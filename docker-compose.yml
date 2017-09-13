@@ -38,7 +38,7 @@ services:
     image: breezeserver:latest
     environment:
       # BreezeServer uses HOME to define application datadirs (.ntumblebitserver, .breezeserver)
-      - HOME=/shared
+      - HOME=/home/shared
     volumes:
       - breezeserver-shared-testnet-data:/home/shared
       - ./breeze-entrypoint.sh:/home/breeze/breeze-entrypoint.sh
