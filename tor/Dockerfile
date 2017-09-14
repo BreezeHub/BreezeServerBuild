@@ -1,4 +1,4 @@
-FROM notroot:latest
+FROM ubuntu:14.04
 LABEL maintainer="dan@dannygould.com"
 
 RUN mkdir /home/tor
